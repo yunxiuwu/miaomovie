@@ -11,6 +11,10 @@ export default new Router({
   routes: [
     MovieRouter,
     CinemaRouter,
-    MineRouter
+    MineRouter,
+      {
+          path : '/*',
+          redirect: '/movie'
+      }
   ]
 })
