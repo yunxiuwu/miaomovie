@@ -3,17 +3,17 @@
         <Header title="喵喵电影" />
             <div id="content">
                 <div class="movie_menu">
-                    <div class="city_name">
+                    <router-link tag="div" to="/movie/city" class="city_name">
                         <span>大连</span><i class="iconfont icon-lower-triangle"></i>
-                    </div>
+                    </router-link>
 
                     <div class="hot_switch">
-                        <div class="hot_item active">正在热映</div>
-                        <div class="hot_item">即将上映</div>
+                        <router-link tag="div" to="/movie/nowPlaying" class="hot_item">正在热映</router-link>
+                        <router-link tag="div" to="/movie/comingSoon" class="hot_item">即将上映</router-link>
                     </div>
-                    <div class="search_entry">
+                    <router-link tag="div" to="/movie/search" class="search_entry">
                         <i class="iconfont icon-sousuo"></i>
-                    </div>
+                    </router-link>
                 </div>
                 <keep-alive>
                     <router-view />
@@ -28,11 +28,10 @@
 
     import Header from "../../components/Header/index";
     import TabBar from "../../components/TabBar/index";
-    import NowPlaying from "../../components/NowPlaying/index";
 
     export default {
         name:'Movie',
-        components: {NowPlaying, TabBar, Header},
+        components: {TabBar, Header},
 
     }
 </script>
