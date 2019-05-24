@@ -1,98 +1,14 @@
 <template>
-    <div id="content">
         <div class="movie_body">
             <ul>
-                <li>
-                    <div class="pic_show"><img src=""></div>
+                <li class="pullDown">{{}}</li>
+                <li v-for="item in movieList" :key="item.id">
+                    <div class="pic_show" @tap="handleToDetail"> <img :src="item.img | setWH('128.180')"></div>
                     <div class="info_list">
-                        <h2>无名之辈</h2>
-                        <p>观众评<span class="grade">9.2</span></p>
-                        <p>主演:陈建斌，任素汐，潘斌龙</p>
-                        <p>今天45家影院放映600场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li>
-                <li>
-                    <div class="pic_show"><img src=""></div>
-                    <div class="info_list">
-                        <h2>毒液：致命守护</h2>
-                        <p>观众评<span class="grade">9.3</span></p>
-                        <p>主演:汤姆哈迪，米歇尔威廉姆斯，里兹阿迈德</p>
-                        <p>今天56家影院放映344场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li>
-                <li>
-                    <div class="pic_show"><img src=""></div>
-                    <div class="info_list">
-                        <h2>无名之辈</h2>
-                        <p>观众评<span class="grade">9.2</span></p>
-                        <p>主演:陈建斌，任素汐，潘斌龙</p>
-                        <p>今天45家影院放映600场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li>
-                <li>
-                    <div class="pic_show"><img src=""></div>
-                    <div class="info_list">
-                        <h2>无名之辈</h2>
-                        <p>观众评<span class="grade">9.2</span></p>
-                        <p>主演:陈建斌，任素汐，潘斌龙</p>
-                        <p>今天45家影院放映600场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li>
-                <li>
-                    <div class="pic_show"><img src=""></div>
-                    <div class="info_list">
-                        <h2>毒液：致命守护</h2>
-                        <p>观众评<span class="grade">9.3</span></p>
-                        <p>主演:汤姆哈迪，米歇尔威廉姆斯，里兹阿迈德</p>
-                        <p>今天56家影院放映344场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li>
-                <li>
-                    <div class="pic_show"><img src=""></div>
-                    <div class="info_list">
-                        <h2>无名之辈</h2>
-                        <p>观众评<span class="grade">9.2</span></p>
-                        <p>主演:陈建斌，任素汐，潘斌龙</p>
-                        <p>今天45家影院放映600场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li>
-                <li>
-                    <div class="pic_show"><img src=""></div>
-                    <div class="info_list">
-                        <h2>无名之辈</h2>
-                        <p>观众评<span class="grade">9.2</span></p>
-                        <p>主演:陈建斌，任素汐，潘斌龙</p>
-                        <p>今天45家影院放映600场</p>
-                    </div>
-                    <div class="btn_mall">
-                        购票
-                    </div>
-                </li>
-                <li>
-                    <div class="pic_show"><img src=""></div>
-                    <div class="info_list">
-                        <h2>毒液：致命守护</h2>
-                        <p>观众评<span class="grade">9.3</span></p>
-                        <p>主演:汤姆哈迪，米歇尔威廉姆斯，里兹阿迈德</p>
-                        <p>今天56家影院放映344场</p>
+                        <h2 @tap="handleToDetail">{{item.nm}} <img v-if="item.version" src="@/assets/maxs.png" alt="" ></h2>
+                        <p>观众评<span class="grade">{{item.sc}}</span></p>
+                        <p>主演:{{item.star}}</p>
+                        <p>{{item.showInfo}}</p>
                     </div>
                     <div class="btn_mall">
                         购票
@@ -100,20 +16,38 @@
                 </li>
             </ul>
         </div>
-    </div>
 
 </template>
 
 <script>
     export default {
-        name: "NowPlaying"
+        name: "NowPlaying",
+        data(){
+            return {
+                movieList:[]
+            }
+        },
+        methods:{
+            handleToDetail(){
+                window.console.log('1234567890');
+               // this.$router.push('/Movie/detail');
+            }
+        },
+        mounted() {
+            this.axios.get('/api/movieOnInfoList?cityId-10').then((res) => {
+               var msg = res.data.msg;
+               if (msg === 'ok'){
+                   this.movieList = res.data.data.movieList;
+               }
+            });
+        }
     }
 </script>
 
 <style scoped>
     #content .movie_body{ flex:1; overflow:auto;}
     .movie_body ul{ margin:0 12px; overflow: hidden;}
-    .movie_body ul li{ margin-top:12px; display: flex; align-items:center; border-bottom: 1px #e6e6e6 solid; padding-bottom: 10px;}
+    .movie_body ul li{ margin-top:12px; display: flex; align-items:center; border-bottom: 1px solid #e6e6e6 ; padding-bottom: 10px;}
     .movie_body .pic_show{ width:64px; height: 90px;}
     .movie_body .pic_show img{ width:100%;}
     .movie_body .info_list { margin-left: 10px; flex:1; position: relative;}
