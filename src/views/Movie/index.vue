@@ -28,7 +28,7 @@
 <script>
 
     import Header from "../../components/Header/index";
-    import TabBar from "../../components/TabBar/index";
+    import TabBar from "../../components/Tabbar/index";
 
     export default {
         name:'Movie',
